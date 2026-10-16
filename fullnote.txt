@@ -1,0 +1,32 @@
+Project 1: The "WhatsApp Forward" Forensics Pipeline (Compression Stress Test)
+Real-world deepfakes aren’t distributed as uncompressed 24kHz WAV files; they are forwarded on WhatsApp, Telegram, or played over standard cellular networks. These platforms heavily compress audio using codecs like Opus or AMR-WB, destroying high-frequency data where forensic artifacts often hide.
+
+The Execution: Build an automated pipeline using Python and FFmpeg that takes clean, cross-lingual synthetic speech and aggressively degrades it to mimic real-world distribution. Run the audio through simulated WhatsApp compression (Opus at 16kbps), standard telephony (G.711 / 8kHz), and raw microphone playback. Use an open-source baseline model (like WavLM) to extract embeddings and calculate how much the intra-generator clusters fragment under these specific real-world codecs.
+
+The Real-World Value: It tells OSINT (Open Source Intelligence) researchers and fact-checkers if source-tracing tools are actually viable for investigating viral social media voice notes.
+
+The API Pitch: "I read that your forensic embedding is robust across languages, but I wanted to see if it survives the 'WhatsApp Forward' effect. I built a pipeline that simulates Opus compression and 8kHz cellular degradation to see if the generator trace gets wiped out by real-world messenger codecs. I'd love API access to see if your 130M-parameter model holds its cluster geometry under this kind of telecom stress."
+
+Paper 2 : Deepfake detection across devices
+
+The Core Question: Does running an AI deepfake detector on a standard smartphone or a regular computer make it worse at catching fakes compared to running it on a massive, expensive supercomputer?
+
+The Experiment: Researchers took one specific audio deepfake detector and tested it across three very different devices: a powerful server GPU, a standard server CPU, and an everyday Android smartphone. They ran the exact same 4,000 audio clips through all of them to measure speed, memory size, and accuracy.
+
+The Results: The accuracy basically doesn't change. Whether the model ran on the massive GPU or the Android phone, the detection quality remained virtually identical (only a 0.00040 difference in their performance metric). Furthermore, the Android phone was able to analyze the audio even faster than real-time speed.
+
+The Conclusion: Deciding where to run a deepfake detector is all about speed, cost, and system setup, not accuracy. You don't need to rely on massive data centers to reliably detect audio deepfakes; a regular phone can do the job without losing quality.
+
+Paper 1 : Generator traces across languages
+
+The Core Question: When an AI generates a fake voice (a speech deepfake), it leaves behind a hidden "fingerprint" or trace. But if that AI speaks a completely new language that the detector has never heard, does that fingerprint disappear?
+
+The Experiment: The researchers trained a deepfake detector to identify which specific AI system created an audio clip using 12 different languages. Then, they tested the detector on 6 completely new languages it had never encountered before.
+
+The Results: The fingerprint definitely survives. The detector was still able to correctly identify the AI generator 91% of the time on the new languages, which is only a tiny drop from its 94.2% accuracy on the languages it already knew.
+
+The Conclusion: AI voice generators leave a fundamental trace in the audio they produce that isn't just tied to the specific language or sounds being spoken. If a deepfake is created in a language absent from training data, the source can likely still be traced.
+
+The Hackathon Idea: Build a system that can detect micro-injections of synthetic speech over a simulated 8kHz G.711 µ-law telephone line.
+
+The Task: Teams must use Detectif.ai’s API to scan a 3-minute customer service call and accurately flag a single 2-second synthesized sentence hidden among real audio, without triggering false positives on the low-quality telephony codec artifacts.
